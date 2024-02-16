@@ -379,3 +379,13 @@ LayoutManager::LayoutList LayoutManager::drawBoardDefinedB() {
     return drawBlankA();
 #endif
 }
+
+LayoutManager::LayoutList LayoutManager::drawRapidbox()
+{
+    return BUTTON_GROUP_RAPIDBOX;
+}
+
+LayoutManager::LayoutList LayoutManager::drawRapidboxB()
+{
+    return BUTTON_GROUP_RAPIDBOXB;
+}

@@ -13,6 +13,7 @@
 #include "enums.h"
 #include "helper.h"
 #include "gamepad.h"
+#include "addons/analog_key.h"
 
 #include "config.pb.h"
 #include <atomic>
@@ -63,11 +64,21 @@ public:
 	void SetProcessedGamepad(Gamepad *); // MPGS Processed Gamepad Get/Set
 	Gamepad * GetProcessedGamepad();
 
+	void SetAnalogKeyAddon(AnalogKeyAddon *);
+	AnalogKeyAddon * GetAnalogKeyAddon();
+
 	void SetFeatureData(uint8_t *); 	// USB Feature Data Get/Set
 	void ClearFeatureData();
 	uint8_t * GetFeatureData();
 
 	void setProfile(const uint32_t);		// profile support for multiple mappings
+	void cycleActuationMode();
+	void decreaceActuationPoint();
+	void increaceActuationPoint();
+	void decreacePressSensitivity();
+	void increacePressSensitivity();
+	void decreaceReleaseSensitivity();
+	void increaceReleaseSensitivity();
 	void setFunctionalPinMappings();
 
 	void ResetSettings(); 				// EEPROM Reset Feature
@@ -77,6 +88,7 @@ private:
 	bool CONFIG_MODE = false; 			// Config mode (boot)
 	Gamepad * gamepad = nullptr;    		// Gamepad data
 	Gamepad * processedGamepad = nullptr; // Gamepad with ONLY processed data
+	AnalogKeyAddon * analogKeyAddon = nullptr;
 	uint8_t featureData[32]; // USB X-Input Feature Data
 	DisplayOptions previewDisplayOptions;
 	Config config;

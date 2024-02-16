@@ -823,7 +823,7 @@ std::string getButtonLayoutDefs()
     for (layoutCtr = _ButtonLayout_MIN; layoutCtr < _ButtonLayout_ARRAYSIZE; layoutCtr++) {
         writeDoc(doc, "buttonLayout", LayoutManager::getInstance().getButtonLayoutName((ButtonLayout)layoutCtr), layoutCtr);
     }
-    
+
     for (layoutCtr = _ButtonLayoutRight_MIN; layoutCtr < _ButtonLayoutRight_ARRAYSIZE; layoutCtr++) {
         writeDoc(doc, "buttonLayoutRight", LayoutManager::getInstance().getButtonLayoutRightName((ButtonLayoutRight)layoutCtr), layoutCtr);
     }
@@ -837,7 +837,7 @@ std::string getButtonLayouts()
     const LEDOptions& ledOptions = Storage::getInstance().getLedOptions();
     const DisplayOptions& displayOptions = Storage::getInstance().getDisplayOptions();
     uint16_t elementCtr = 0;
-    
+
     LayoutManager::LayoutList layoutA = LayoutManager::getInstance().getLayoutA();
     LayoutManager::LayoutList layoutB = LayoutManager::getInstance().getLayoutB();
 
@@ -898,7 +898,7 @@ std::string getButtonLayouts()
         writeDoc(ele, "parameters", "closed", layoutB[elementCtr].parameters.closed);
         writeDoc(doc, "displayLayouts", "buttonLayoutRight", std::to_string(elementCtr), ele);
     }
-    
+
     return serialize_json(doc);
 }
 
@@ -1234,6 +1234,15 @@ std::string setAddonOptions()
     DynamicJsonDocument doc = get_post_data();
 
     GpioMappingInfo* gpioMappings = Storage::getInstance().getGpioMappings().pins;
+
+    AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
+		docToValue(analogKeyOptions.enabled, doc, "AnalogKeyEnabled");
+		docToValue(analogKeyOptions.travelDistance, doc, "travelDistance");
+		docToValue(analogKeyOptions.bottomMagneticPole, doc, "bottomMagneticPole");
+		docToValue(analogKeyOptions.actuationMode, doc, "actuationMode");
+		docToValue(analogKeyOptions.actuationPoint, doc, "actuationPoint");
+		docToValue(analogKeyOptions.pressSensitivity, doc, "pressSensitivity");
+		docToValue(analogKeyOptions.releaseSensitivity, doc, "releaseSensitivity");
 
     AnalogOptions& analogOptions = Storage::getInstance().getAddonOptions().analogOptions;
     docToPin(analogOptions.analogAdc1PinX, doc, "analogAdc1PinX");
@@ -1645,6 +1654,15 @@ std::string getWiiControls()
 std::string getAddonOptions()
 {
     DynamicJsonDocument doc(LWIP_HTTPD_POST_MAX_PAYLOAD_LEN);
+
+    const AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
+		writeDoc(doc, "AnalogKeyEnabled", analogKeyOptions.enabled);
+		writeDoc(doc, "travelDistance", analogKeyOptions.travelDistance);
+		writeDoc(doc, "bottomMagneticPole", analogKeyOptions.bottomMagneticPole);
+		writeDoc(doc, "actuationMode", analogKeyOptions.actuationMode);
+		writeDoc(doc, "actuationPoint", analogKeyOptions.actuationPoint);
+		writeDoc(doc, "pressSensitivity", analogKeyOptions.pressSensitivity);
+		writeDoc(doc, "releaseSensitivity", analogKeyOptions.releaseSensitivity);
 
     const AnalogOptions& analogOptions = Storage::getInstance().getAddonOptions().analogOptions;
     writeDoc(doc, "analogAdc1PinX", cleanPin(analogOptions.analogAdc1PinX));

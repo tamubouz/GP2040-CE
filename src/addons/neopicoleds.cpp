@@ -476,13 +476,13 @@ std::vector<std::vector<Pixel>> NeoPicoLEDAddon::createLEDLayout(ButtonLayout la
 			return generatedLEDStickless(&positions);
 
 		case BUTTON_LAYOUT_STICKLESS_13:
-			return generatedLEDStickless(&positions);	
-			
+			return generatedLEDStickless(&positions);
+
 		case BUTTON_LAYOUT_STICKLESS_16:
 			return generatedLEDStickless(&positions);
 
 		case BUTTON_LAYOUT_STICKLESS_14:
-			return generatedLEDStickless(&positions);		
+			return generatedLEDStickless(&positions);
 	}
 
 	assert(false);
@@ -600,7 +600,7 @@ AnimationHotkey animationHotkeys(Gamepad *gamepad)
 		{
 			action = HOTKEY_LEDS_FADETIME_UP;
 			gamepad->state.buttons &= ~(GAMEPAD_MASK_R3 | GAMEPAD_MASK_S1 | GAMEPAD_MASK_S2);
-		}        
+		}
 	}
 
 	return action;

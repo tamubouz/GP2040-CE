@@ -10,6 +10,7 @@ import set from 'lodash/set';
 import { AppContext } from '../Contexts/AppContext';
 
 import WebApi from '../Services/WebApi';
+import AnalogKey, { analogKeyScheme, analogKeyState } from '../Addons/AnalogKey';
 import Analog, { analogScheme, analogState } from '../Addons/Analog';
 import Analog1256, { analog1256Scheme, analog1256State } from '../Addons/Analog1256';
 import Bootsel, { bootselScheme, bootselState } from '../Addons/Bootsel';
@@ -43,6 +44,7 @@ import InputHistory, { inputHistoryScheme, inputHistoryState } from '../Addons/I
 import Rotary, { rotaryScheme, rotaryState } from '../Addons/Rotary';
 
 const schema = yup.object().shape({
+	...analogKeyScheme,
 	...analogScheme,
 	...analog1256Scheme,
 	...bootselScheme,
@@ -64,6 +66,7 @@ const schema = yup.object().shape({
 });
 
 const defaultValues = {
+	...analogKeyState,
 	...analogState,
 	...analog1256State,
 	...bootselState,
@@ -86,6 +89,7 @@ const defaultValues = {
 };
 
 const ADDONS = [
+	AnalogKey,
 	Bootsel,
 	OnBoardLed,
 	Analog,
@@ -202,7 +206,7 @@ export default function AddonsConfigPage() {
 			onSubmit={onSuccess}
 			initialValues={defaultValues}
 		>
-			{({ handleSubmit, handleChange, values, errors, setFieldValue }) => 
+			{({ handleSubmit, handleChange, values, errors, setFieldValue }) =>
 			console.log('errors', errors) || (
 				<Form noValidate onSubmit={handleSubmit}>
 					<h1>{t('AddonsConfig:header-text')}</h1>

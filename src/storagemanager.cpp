@@ -83,7 +83,7 @@ static void updateAnimationOptionsProto(const AnimationOptions& options)
 	optionsProto.customThemeA2Pressed		= options.customThemeA2Pressed;
 	optionsProto.customThemeL3Pressed		= options.customThemeL3Pressed;
 	optionsProto.customThemeR3Pressed		= options.customThemeR3Pressed;
-	optionsProto.buttonPressColorCooldownTimeInMs = options.buttonPressColorCooldownTimeInMs;	
+	optionsProto.buttonPressColorCooldownTimeInMs = options.buttonPressColorCooldownTimeInMs;
 }
 
 void Storage::performEnqueuedSaves()
@@ -120,6 +120,53 @@ void Storage::ResetSettings()
 void Storage::setProfile(const uint32_t profileNum)
 {
 	this->config.gamepadOptions.profileNumber = (profileNum < 1 || profileNum > 4) ? 1 : profileNum;
+}
+
+void Storage::cycleActuationMode()
+{
+	this->config.addonOptions.analogKeyOptions.actuationMode = (this->config.addonOptions.analogKeyOptions.actuationMode + 1) % 3;
+}
+
+void Storage::decreaceActuationPoint()
+{
+	if (this->config.addonOptions.analogKeyOptions.actuationPoint < this->config.addonOptions.analogKeyOptions.travelDistance) {
+	  this->config.addonOptions.analogKeyOptions.actuationPoint += 10;
+	}
+}
+
+void Storage::increaceActuationPoint()
+{
+	if (this->config.addonOptions.analogKeyOptions.actuationPoint > 10) {
+	  this->config.addonOptions.analogKeyOptions.actuationPoint -= 10;
+	}
+}
+
+void Storage::decreacePressSensitivity()
+{
+	if (this->config.addonOptions.analogKeyOptions.pressSensitivity < MIN(235, this->config.addonOptions.analogKeyOptions.travelDistance)) {
+	  this->config.addonOptions.analogKeyOptions.pressSensitivity += 5;
+	}
+}
+
+void Storage::increacePressSensitivity()
+{
+	if (this->config.addonOptions.analogKeyOptions.pressSensitivity > 15) {
+	  this->config.addonOptions.analogKeyOptions.pressSensitivity -= 5;
+	}
+}
+
+void Storage::decreaceReleaseSensitivity()
+{
+	if (this->config.addonOptions.analogKeyOptions.releaseSensitivity < MIN(235, this->config.addonOptions.analogKeyOptions.travelDistance)) {
+	  this->config.addonOptions.analogKeyOptions.releaseSensitivity += 5;
+	}
+}
+
+void Storage::increaceReleaseSensitivity()
+{
+	if (this->config.addonOptions.analogKeyOptions.releaseSensitivity > 15) {
+	  this->config.addonOptions.analogKeyOptions.releaseSensitivity -= 5;
+	}
 }
 
 void Storage::setFunctionalPinMappings()
@@ -174,6 +221,16 @@ void Storage::SetProcessedGamepad(Gamepad * newpad)
 Gamepad * Storage::GetProcessedGamepad()
 {
 	return processedGamepad;
+}
+
+void Storage::SetAnalogKeyAddon(AnalogKeyAddon * newAddon)
+{
+	analogKeyAddon = newAddon;
+}
+
+AnalogKeyAddon * Storage::GetAnalogKeyAddon()
+{
+	return analogKeyAddon;
 }
 
 void Storage::SetFeatureData(uint8_t * newData)
@@ -242,7 +299,7 @@ AnimationOptions AnimationStorage::getAnimationOptions()
 	options.customThemeA2Pressed	= optionsProto.customThemeA2Pressed;
 	options.customThemeL3Pressed	= optionsProto.customThemeL3Pressed;
 	options.customThemeR3Pressed	= optionsProto.customThemeR3Pressed;
-	options.buttonPressColorCooldownTimeInMs = optionsProto.buttonPressColorCooldownTimeInMs;		
+	options.buttonPressColorCooldownTimeInMs = optionsProto.buttonPressColorCooldownTimeInMs;
 
 	return options;
 }

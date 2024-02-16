@@ -158,7 +158,7 @@ namespace ConfigLegacy
         CUSTOM,
         LEGACY
     };
-    
+
     struct ButtonLayoutParams
     {
         union {
@@ -286,6 +286,7 @@ namespace ConfigLegacy
         uint8_t wiiExtensionSCLPin;
         int wiiExtensionBlock;
         uint32_t wiiExtensionSpeed;
+				uint8_t AnalogKeyEnabled;
         uint8_t AnalogInputEnabled;
         uint8_t BoardLedAddonEnabled;
         uint8_t BootselButtonAddonEnabled;
@@ -320,7 +321,7 @@ namespace ConfigLegacy
 
     struct GamepadOptions
     {
-        InputMode inputMode {InputMode::INPUT_MODE_XINPUT}; 
+        InputMode inputMode {InputMode::INPUT_MODE_XINPUT};
         DpadMode dpadMode {DpadMode::DPAD_MODE_DIGITAL};
         SOCDMode socdMode {SOCDMode::SOCD_MODE_NEUTRAL};
         bool invertXAxis;
@@ -591,7 +592,7 @@ static bool isValidButtonLayoutRight(ConfigLegacy::ButtonLayoutRight buttonLayou
         case BUTTON_LAYOUT_KEYBOARD8B:
         case BUTTON_LAYOUT_OPENCORE0WASDB:
         case BUTTON_LAYOUT_STICKLESS_13B:
-        case BUTTON_LAYOUT_STICKLESS_16B:        
+        case BUTTON_LAYOUT_STICKLESS_16B:
         case BUTTON_LAYOUT_STICKLESS_14B:
             return true;
     }
@@ -959,6 +960,10 @@ bool ConfigUtils::fromLegacyStorage(Config& config)
 
         config.has_addonOptions = true;
 
+        AnalogKeyOptions& analogKeyOptions = config.addonOptions.analogKeyOptions;
+        config.addonOptions.has_analogKeyOptions = true;
+        SET_PROPERTY(analogKeyOptions, enabled, legacyAddonOptions.AnalogKeyEnabled);
+
         AnalogOptions& analogOptions = config.addonOptions.analogOptions;
         config.addonOptions.has_analogOptions = true;
         SET_PROPERTY(analogOptions, enabled, legacyAddonOptions.AnalogInputEnabled);
@@ -1083,7 +1088,7 @@ bool ConfigUtils::fromLegacyStorage(Config& config)
         SET_PROPERTY(wiiOptions, deprecatedI2cSDAPin, bytePinToIntPin(legacyAddonOptions.wiiExtensionSDAPin));
         SET_PROPERTY(wiiOptions, deprecatedI2cSCLPin, bytePinToIntPin(legacyAddonOptions.wiiExtensionSCLPin));
         SET_PROPERTY(wiiOptions, deprecatedI2cSpeed, legacyAddonOptions.wiiExtensionSpeed);
-        
+
         PS4Options& ps4Options = config.addonOptions.ps4Options;
         config.addonOptions.has_ps4Options = true;
         SET_PROPERTY(ps4Options, enabled, legacyAddonOptions.PS4ModeAddonEnabled);

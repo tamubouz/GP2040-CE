@@ -189,7 +189,7 @@ void Gamepad::process()
 void Gamepad::read()
 {
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
-	
+
 	// Get the midpoint value for the current mode
 	uint16_t joystickMid = GAMEPAD_JOYSTICK_MID;
 	if ( DriverManager::getInstance().getDriver() != nullptr ) {
@@ -240,7 +240,7 @@ void Gamepad::hotkey()
 {
 	if (options.lockHotkeys)
 		return;
-	
+
 	GamepadHotkey action = HOTKEY_NONE;
 	if (pressedHotkey(hotkeyOptions.hotkey01))	    action = selectHotkey(hotkeyOptions.hotkey01);
 	else if (pressedHotkey(hotkeyOptions.hotkey02))	action = selectHotkey(hotkeyOptions.hotkey02);
@@ -384,7 +384,7 @@ void Gamepad::processHotkeyAction(GamepadHotkey action) {
 			break;
 		case HOTKEY_TOUCHPAD_BUTTON:
 			state.buttons |= GAMEPAD_MASK_A2;
-			break;				
+			break;
 		case HOTKEY_INVERT_X_AXIS:
 			if (action != lastAction) {
 				options.invertXAxis = !options.invertXAxis;
@@ -434,6 +434,55 @@ void Gamepad::processHotkeyAction(GamepadHotkey action) {
 		case HOTKEY_LOAD_PROFILE_4:
 			if (action != lastAction) {
 				Storage::getInstance().setProfile(4);
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_CYCLE_ACTUATION_MODE:
+			if (action != lastAction) {
+				Storage::getInstance().cycleActuationMode();
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_DECREASE_AP:
+			if (action != lastAction) {
+				Storage::getInstance().decreaceActuationPoint();
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_INCREASE_AP:
+			if (action != lastAction) {
+				Storage::getInstance().increaceActuationPoint();
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_DECREASE_PS:
+			if (action != lastAction) {
+				Storage::getInstance().decreacePressSensitivity();
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_INCREASE_PS:
+			if (action != lastAction) {
+				Storage::getInstance().increacePressSensitivity();
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_DECREASE_RS:
+			if (action != lastAction) {
+				Storage::getInstance().decreaceReleaseSensitivity();
+				userRequestedReinit = true;
+				reqSave = true;
+			}
+			break;
+		case HOTKEY_INCREASE_RS:
+			if (action != lastAction) {
+				Storage::getInstance().increaceReleaseSensitivity();
 				userRequestedReinit = true;
 				reqSave = true;
 			}

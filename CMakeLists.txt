@@ -197,6 +197,9 @@ src/usbhostmanager.cpp
 src/config_legacy.cpp
 src/config_utils.cpp
 src/configs/webconfig.cpp
+src/addons/analog_key.cpp
+src/addons/analog_key/sma_filter.cpp
+src/addons/analog_key/gauss_lut.cpp
 src/addons/analog.cpp
 src/addons/board_led.cpp
 src/addons/bootsel_button.cpp

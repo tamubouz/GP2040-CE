@@ -8,6 +8,13 @@ export default {
 	'bootsel-button-pin-label': 'BOOTSEL Button',
 	'on-board-led-configuration-label': 'On-Board LED Configuration',
 	'on-board-led-mode-label': 'LED Mode',
+	'analog-key-header-text': 'Analog Key',
+	'analog-key-travel-distance-label': 'Travel Distance',
+	'analog-key-bottom-magnetic-pole-label': 'Bottom Magnertic Pole',
+	'analog-key-actuation-mode-label': 'Actuation Mode',
+	'analog-key-actuation-point-label': 'Actuation Point',
+	'analog-key-press-sensitivity-label': 'Press Sensitivity',
+	'analog-key-release-sensitivity-label': 'Release Sensitivity',
 	'analog-header-text': 'Analog',
 	'analog-warning':
 		'Note: Analog sticks will override gamepad Left-Stick and Right-Stick inputs when enabled',

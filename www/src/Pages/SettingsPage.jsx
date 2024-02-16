@@ -212,7 +212,7 @@ const HOTKEY_ACTIONS = [
 	{ labelKey: 'hotkey-actions.b1-button', value: 23 },
 	{ labelKey: 'hotkey-actions.b2-button', value: 24 },
 	{ labelKey: 'hotkey-actions.b3-button', value: 24 },
-	{ labelKey: 'hotkey-actions.b4-button', value: 26 }, 
+	{ labelKey: 'hotkey-actions.b4-button', value: 26 },
 	{ labelKey: 'hotkey-actions.l1-button', value: 27 },
 	{ labelKey: 'hotkey-actions.r1-button', value: 28 },
 	{ labelKey: 'hotkey-actions.l2-button', value: 29 },
@@ -221,6 +221,13 @@ const HOTKEY_ACTIONS = [
 	{ labelKey: 'hotkey-actions.s2-button', value: 32 },
 	{ labelKey: 'hotkey-actions.a1-button', value: 33 },
 	{ labelKey: 'hotkey-actions.a2-button', value: 34 },
+	{ labelKey: 'hotkey-actions.cycle-actuation-mode', value: 35 },
+	{ labelKey: 'hotkey-actions.decrease-actuation-point', value: 36 },
+	{ labelKey: 'hotkey-actions.increase-actuation-point', value: 37 },
+	{ labelKey: 'hotkey-actions.decrease-press-sensitivity', value: 38 },
+	{ labelKey: 'hotkey-actions.increase-press-sensitivity', value: 39 },
+	{ labelKey: 'hotkey-actions.decrease-release-sensitivity', value: 40 },
+	{ labelKey: 'hotkey-actions.increase-release-sensitivity', value: 41 },
 ];
 
 const FORCED_SETUP_MODES = [
@@ -456,7 +463,7 @@ export default function SettingsPage() {
 				}
 			});
 		};
-	
+
 		function int2mbedmpi(num) {
 			const out = [];
 			const mask = BigInt('4294967295');
@@ -467,14 +474,14 @@ export default function SettingsPage() {
 			}
 			return out;
 		}
-	
+
 		function hexToBytes(hex) {
 			const bytes = [];
 			for (let c = 0; c < hex.length; c += 2)
 				bytes.push(parseInt(hex.substr(c, 2), 16));
 			return bytes;
 		}
-	
+
 		function mbedmpi2b64(mpi) {
 			const arr = new Uint8Array(mpi.length * 4);
 			let cnt = 0;
@@ -487,24 +494,24 @@ export default function SettingsPage() {
 					cnt++;
 				}
 			}
-	
+
 			return btoa(String.fromCharCode.apply(null, arr));
 		}
-	
+
 		try {
 			const [pem, signature, serialFileContent] = await Promise.all([
 				loadFile(PS4Key, true),
 				loadFile(PS4Signature, false),
 				loadFile(PS4Serial, true),
 			]);
-	
+
 			// Make sure our signature is 256 bytes
 			const serialNoPadding = serialFileContent.trimRight();
 			if (signature.length !== 256 || serialNoPadding.length !== 16) {
 				throw new Error('Signature or serial is invalid');
 			}
 			const serial = serialNoPadding.padStart(32, '0'); // Add our padding
-	
+
 			const key = new JSEncrypt();
 			key.setPrivateKey(pem);
 			const bytes = new Uint8Array(256);
@@ -513,21 +520,21 @@ export default function SettingsPage() {
 			}
 			const hashed = SHA256(bytes);
 			const signNonce = key.sign(hashed, SHA256, 'sha256');
-	
+
 			if (signNonce === false) {
 				throw new Error('Bad Private Key');
 			}
-	
+
 			// Private key worked!
-	
+
 			// Translate these to BigInteger
 			const N = BigInt(String(key.key.n));
 			const E = BigInt(String(key.key.e));
 			const P = BigInt(String(key.key.p));
 			const Q = BigInt(String(key.key.q));
-	
+
 			const serialBin = hexToBytes(serial);
-	
+
 			const success = await WebApi.setPS4Options({
 				N: mbedmpi2b64(int2mbedmpi(N)),
 				E: mbedmpi2b64(int2mbedmpi(E)),
@@ -536,7 +543,7 @@ export default function SettingsPage() {
 				serial: btoa(String.fromCharCode(...new Uint8Array(serialBin))),
 				signature: btoa(signature),
 			});
-	
+
 			if (success) {
 				setMessage('Verified and Saved PS4 Keys!');
 			} else {
@@ -550,12 +557,12 @@ export default function SettingsPage() {
 	const WARNING_CHECK_TEXT = 'GP2040-CE';
 
     const INPUT_MODE_PERMISSIONS = [
-        { 
-            permission: 'usb', 
-            check: () => (getAvailablePeripherals('usb') !== false), 
+        {
+            permission: 'usb',
+            check: () => (getAvailablePeripherals('usb') !== false),
             reason: () => ((getAvailablePeripherals('usb') === false) ? 'USB peripheral not enabled' : '')
         }
-    ];    
+    ];
 
 	const handleKeyChange = (value, button) => {
 		const newMappings = { ...keyMappings };

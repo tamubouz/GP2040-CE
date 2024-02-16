@@ -1,16 +1,19 @@
 #include "ButtonLayoutScreen.h"
 #include "buttonlayouts.h"
 
+constexpr int BUFFER_SIZE = 20;
+
 void ButtonLayoutScreen::drawScreen() {
     getRenderer()->drawRectangle(0, 0, 128, 7, displayProfileBanner, displayProfileBanner);
     getRenderer()->drawText(0, 0, header, displayProfileBanner);
     getRenderer()->drawText(0, 7, footer);
+		drawAnalogKeyOptions();
 }
 
 GPLever* ButtonLayoutScreen::drawLever(uint16_t startX, uint16_t startY, uint16_t sizeX, uint16_t sizeY, uint16_t strokeColor, uint16_t fillColor, uint16_t inputType) {
     GPLever* lever = addElement<GPLever>();
     lever->setRenderer(getRenderer());
-    
+
     lever->setPosition(startX, startY);
     lever->setStrokeColor(strokeColor);
     lever->setFillColor(fillColor);
@@ -102,7 +105,7 @@ int8_t ButtonLayoutScreen::update() {
     if (configMode) {
         uint8_t layoutLeft = Storage::getInstance().getDisplayOptions().buttonLayout;
         uint8_t layoutRight = Storage::getInstance().getDisplayOptions().buttonLayoutRight;
-    
+
         if ((prevLayoutLeft != layoutLeft) || (prevLayoutRight != layoutRight)) {
             hasInitialized = false;
             clear();
@@ -158,7 +161,7 @@ int8_t ButtonLayoutScreen::update() {
         }
 
         prevButtonState = buttonState;
-  
+
         return DisplayMode::BUTTONS;
     }
 }
@@ -354,4 +357,44 @@ bool ButtonLayoutScreen::pressedDownRight()
     }
 
     return false;
+}
+
+std::string ButtonLayoutScreen::intToMm(int16_t num) {
+	char buffer[BUFFER_SIZE];
+	int whole_part = num / 100;
+	int remainder = num % 100;
+	std::snprintf(buffer, BUFFER_SIZE, "%d.%02dmm", whole_part, remainder);
+
+	return std::string(buffer);
+}
+
+void ButtonLayoutScreen::drawAnalogKeyOptions() {
+    const AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
+		std::string line1 = "";
+		std::string line2 = "";
+
+		line1 += "AM:";
+
+		switch (analogKeyOptions.actuationMode) {
+				case 0:
+						line1 += "SA      ";
+						break;
+				case 1:
+						line1 += "RT      ";
+						break;
+				case 2:
+						line1 += "CRT     ";
+						break;
+				default:
+						break;
+		}
+		line1 += "AP:" + intToMm(analogKeyOptions.actuationPoint);
+
+		getRenderer()->drawText(0, 1, line1);
+
+		if (analogKeyOptions.actuationMode != 0) {
+				line2 += "PS:" + intToMm(analogKeyOptions.pressSensitivity);
+				line2 += "  RS:" + intToMm(analogKeyOptions.releaseSensitivity);
+				getRenderer()->drawText(0, 2, line2);
+		}
 }

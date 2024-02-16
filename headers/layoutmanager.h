@@ -116,6 +116,8 @@ class LayoutManager {
         LayoutList drawBM7KeyB();
         LayoutList drawGitadoraFretB();
         LayoutList drawGitadoraStrumB();
+        LayoutList drawRapidbox();
+        LayoutList drawRapidboxB();
     private:
         LayoutManager(){}
 
@@ -158,6 +160,7 @@ class LayoutManager {
             {BUTTON_LAYOUT_GITADORA_STRUM_A,          [this]() { return this->drawGitadoraStrumA(); }},
 
             {BUTTON_LAYOUT_BOARD_DEFINED_A,           [this]() { return this->drawBoardDefinedA(); }},
+            {BUTTON_LAYOUT_RAPIDBOX,                  [this]() { return this->drawRapidbox(); }},
         };
 
         std::map<uint16_t,LayoutFunction> GPButtonLayouts_RightLayouts = {
@@ -195,6 +198,7 @@ class LayoutManager {
             {BUTTON_LAYOUT_GITADORA_STRUM_B,          [this]() { return this->drawGitadoraStrumB(); }},
 
             {BUTTON_LAYOUT_BOARD_DEFINED_B,           [this]() { return this->drawBoardDefinedB(); }},
+            {BUTTON_LAYOUT_RAPIDBOXB,                 [this]() { return this->drawRapidboxB(); }},
         };
 };
 
