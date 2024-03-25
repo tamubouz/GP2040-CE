@@ -519,10 +519,34 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, enabled, !!ANALOG_KEY_ENABLED);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, travelDistance, TRAVEL_DISTANCE_IN_0_01MM);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, bottomMagneticPole, BOTTOM_MAGNETIC_POLE);
-    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, actuationMode, ANALOG_KEY_ACTUATION_MODE);
-    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, actuationPoint, ANALOG_KEY_ACTUATION_POINT);
-    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, pressSensitivity, ANALOG_KEY_PRESS_SENSITIVITY);
-    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, releaseSensitivity, ANALOG_KEY_RELEASE_SENSITIVITY);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, actuationMode, ANALOG_KEY_ACTUATION_MODE);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, actuationPoint, ANALOG_KEY_ACTUATION_POINT);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, pressSensitivity, ANALOG_KEY_PRESS_SENSITIVITY);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, releaseSensitivity, ANALOG_KEY_RELEASE_SENSITIVITY);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[0], mask, ANALOG_KEY_01);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[1], mask, ANALOG_KEY_02);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[2], mask, ANALOG_KEY_03);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[3], mask, ANALOG_KEY_04);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[4], mask, ANALOG_KEY_05);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[5], mask, ANALOG_KEY_06);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[6], mask, ANALOG_KEY_07);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[7], mask, ANALOG_KEY_08);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[8], mask, ANALOG_KEY_09);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[9], mask, ANALOG_KEY_10);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[10], mask, ANALOG_KEY_11);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[11], mask, ANALOG_KEY_12);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[12], mask, ANALOG_KEY_13);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[13], mask, ANALOG_KEY_14);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[14], mask, ANALOG_KEY_15);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[15], mask, ANALOG_KEY_16);
+		for (int i = 0; i < MUX_CHANNELS; i++) {
+			INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[i], enabledPerKeySettings, 0);
+			INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[i].actuationOptions, actuationMode, ANALOG_KEY_ACTUATION_MODE);
+			INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[i].actuationOptions, actuationPoint, ANALOG_KEY_ACTUATION_POINT);
+			INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[i].actuationOptions, pressSensitivity, ANALOG_KEY_PRESS_SENSITIVITY);
+			INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.analogKeys[i].actuationOptions, releaseSensitivity, ANALOG_KEY_RELEASE_SENSITIVITY);
+		}
+    config.addonOptions.analogKeyOptions.analogKeys_count = MUX_CHANNELS;
 
     // addonOptions.analogOptions
     INIT_UNSET_PROPERTY(config.addonOptions.analogOptions, enabled, !!ANALOG_INPUT_ENABLED);

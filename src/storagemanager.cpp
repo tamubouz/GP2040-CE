@@ -124,48 +124,48 @@ void Storage::setProfile(const uint32_t profileNum)
 
 void Storage::cycleActuationMode()
 {
-	this->config.addonOptions.analogKeyOptions.actuationMode = (this->config.addonOptions.analogKeyOptions.actuationMode + 1) % 3;
+	this->config.addonOptions.analogKeyOptions.actuationOptions.actuationMode = (this->config.addonOptions.analogKeyOptions.actuationOptions.actuationMode + 1) % 3;
 }
 
 void Storage::decreaceActuationPoint()
 {
-	if (this->config.addonOptions.analogKeyOptions.actuationPoint < this->config.addonOptions.analogKeyOptions.travelDistance) {
-	  this->config.addonOptions.analogKeyOptions.actuationPoint += 10;
+	if (this->config.addonOptions.analogKeyOptions.actuationOptions.actuationPoint < this->config.addonOptions.analogKeyOptions.travelDistance) {
+	  this->config.addonOptions.analogKeyOptions.actuationOptions.actuationPoint += 10;
 	}
 }
 
 void Storage::increaceActuationPoint()
 {
-	if (this->config.addonOptions.analogKeyOptions.actuationPoint > 10) {
-	  this->config.addonOptions.analogKeyOptions.actuationPoint -= 10;
+	if (this->config.addonOptions.analogKeyOptions.actuationOptions.actuationPoint > 10) {
+	  this->config.addonOptions.analogKeyOptions.actuationOptions.actuationPoint -= 10;
 	}
 }
 
 void Storage::decreacePressSensitivity()
 {
-	if (this->config.addonOptions.analogKeyOptions.pressSensitivity < MIN(235, this->config.addonOptions.analogKeyOptions.travelDistance)) {
-	  this->config.addonOptions.analogKeyOptions.pressSensitivity += 5;
+	if (this->config.addonOptions.analogKeyOptions.actuationOptions.pressSensitivity < MIN(235, this->config.addonOptions.analogKeyOptions.travelDistance)) {
+	  this->config.addonOptions.analogKeyOptions.actuationOptions.pressSensitivity += 5;
 	}
 }
 
 void Storage::increacePressSensitivity()
 {
-	if (this->config.addonOptions.analogKeyOptions.pressSensitivity > 15) {
-	  this->config.addonOptions.analogKeyOptions.pressSensitivity -= 5;
+	if (this->config.addonOptions.analogKeyOptions.actuationOptions.pressSensitivity > 15) {
+	  this->config.addonOptions.analogKeyOptions.actuationOptions.pressSensitivity -= 5;
 	}
 }
 
 void Storage::decreaceReleaseSensitivity()
 {
-	if (this->config.addonOptions.analogKeyOptions.releaseSensitivity < MIN(235, this->config.addonOptions.analogKeyOptions.travelDistance)) {
-	  this->config.addonOptions.analogKeyOptions.releaseSensitivity += 5;
+	if (this->config.addonOptions.analogKeyOptions.actuationOptions.releaseSensitivity < MIN(235, this->config.addonOptions.analogKeyOptions.travelDistance)) {
+	  this->config.addonOptions.analogKeyOptions.actuationOptions.releaseSensitivity += 5;
 	}
 }
 
 void Storage::increaceReleaseSensitivity()
 {
-	if (this->config.addonOptions.analogKeyOptions.releaseSensitivity > 15) {
-	  this->config.addonOptions.analogKeyOptions.releaseSensitivity -= 5;
+	if (this->config.addonOptions.analogKeyOptions.actuationOptions.releaseSensitivity > 15) {
+	  this->config.addonOptions.analogKeyOptions.actuationOptions.releaseSensitivity -= 5;
 	}
 }
 

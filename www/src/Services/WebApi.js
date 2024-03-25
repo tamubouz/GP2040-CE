@@ -498,6 +498,34 @@ async function setMacroAddonOptions(options) {
 		});
 }
 
+async function getAnalogKeyAddonOptions(setLoading) {
+	setLoading(true);
+
+	try {
+		const response = await axios.get(`${baseUrl}/api/getAnalogKeyAddonOptions`);
+		const data = response.data;
+		setLoading(false);
+
+		return data;
+	} catch (error) {
+		setLoading(false);
+		console.error(error);
+	}
+}
+
+async function setAnalogKeyAddonOptions(options) {
+	return axios
+		.post(`${baseUrl}/api/setAnalogKeyAddonOptions`, sanitizeRequest(options))
+		.then((response) => {
+			console.log(response.data);
+			return true;
+		})
+		.catch((err) => {
+			console.error(err);
+			return false;
+		});
+}
+
 async function setPS4Options(options) {
 	return axios
 		.post(`${baseUrl}/api/setPS4Options`, options)
@@ -662,6 +690,8 @@ const WebApi = {
 	setAddonsOptions,
 	getMacroAddonOptions,
 	setMacroAddonOptions,
+	getAnalogKeyAddonOptions,
+	setAnalogKeyAddonOptions,
 	setPS4Options,
 	getWiiControls,
 	setWiiControls,

@@ -40,7 +40,7 @@ using namespace std;
 
 extern struct fsdata_file file__index_html[];
 
-const static char* spaPaths[] = { "/backup", "/display-config", "/led-config", "/pin-mapping", "/settings", "/reset-settings", "/add-ons", "/custom-theme", "/macro", "/peripheral-mapping" };
+const static char* spaPaths[] = { "/backup", "/display-config", "/led-config", "/pin-mapping", "/settings", "/reset-settings", "/add-ons", "/custom-theme", "/macro", "/peripheral-mapping", "/analog-key" };
 const static char* excludePaths[] = { "/css", "/images", "/js", "/static" };
 const static uint32_t rebootDelayMs = 500;
 static string http_post_uri;
@@ -1235,15 +1235,6 @@ std::string setAddonOptions()
 
     GpioMappingInfo* gpioMappings = Storage::getInstance().getGpioMappings().pins;
 
-    AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
-		docToValue(analogKeyOptions.enabled, doc, "AnalogKeyEnabled");
-		docToValue(analogKeyOptions.travelDistance, doc, "travelDistance");
-		docToValue(analogKeyOptions.bottomMagneticPole, doc, "bottomMagneticPole");
-		docToValue(analogKeyOptions.actuationMode, doc, "actuationMode");
-		docToValue(analogKeyOptions.actuationPoint, doc, "actuationPoint");
-		docToValue(analogKeyOptions.pressSensitivity, doc, "pressSensitivity");
-		docToValue(analogKeyOptions.releaseSensitivity, doc, "releaseSensitivity");
-
     AnalogOptions& analogOptions = Storage::getInstance().getAddonOptions().analogOptions;
     docToPin(analogOptions.analogAdc1PinX, doc, "analogAdc1PinX");
     docToPin(analogOptions.analogAdc1PinY, doc, "analogAdc1PinY");
@@ -1655,15 +1646,6 @@ std::string getAddonOptions()
 {
     DynamicJsonDocument doc(LWIP_HTTPD_POST_MAX_PAYLOAD_LEN);
 
-    const AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
-		writeDoc(doc, "AnalogKeyEnabled", analogKeyOptions.enabled);
-		writeDoc(doc, "travelDistance", analogKeyOptions.travelDistance);
-		writeDoc(doc, "bottomMagneticPole", analogKeyOptions.bottomMagneticPole);
-		writeDoc(doc, "actuationMode", analogKeyOptions.actuationMode);
-		writeDoc(doc, "actuationPoint", analogKeyOptions.actuationPoint);
-		writeDoc(doc, "pressSensitivity", analogKeyOptions.pressSensitivity);
-		writeDoc(doc, "releaseSensitivity", analogKeyOptions.releaseSensitivity);
-
     const AnalogOptions& analogOptions = Storage::getInstance().getAddonOptions().analogOptions;
     writeDoc(doc, "analogAdc1PinX", cleanPin(analogOptions.analogAdc1PinX));
     writeDoc(doc, "analogAdc1PinY", cleanPin(analogOptions.analogAdc1PinY));
@@ -1921,6 +1903,67 @@ std::string getMacroAddonOptions()
     return serialize_json(doc);
 }
 
+std::string setAnalogKeyAddonOptions()
+{
+	DynamicJsonDocument doc = get_post_data();
+	AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
+
+	readDoc(analogKeyOptions.enabled, doc, "AnalogKeyEnabled");
+	readDoc(analogKeyOptions.travelDistance, doc, "travelDistance");
+	readDoc(analogKeyOptions.bottomMagneticPole, doc, "bottomMagneticPole");
+	readDoc(analogKeyOptions.actuationOptions.actuationMode, doc, "actuationOptions", "actuationMode");
+	readDoc(analogKeyOptions.actuationOptions.actuationPoint, doc, "actuationOptions", "actuationPoint");
+	readDoc(analogKeyOptions.actuationOptions.pressSensitivity, doc, "actuationOptions", "pressSensitivity");
+	readDoc(analogKeyOptions.actuationOptions.releaseSensitivity, doc, "actuationOptions", "releaseSensitivity");
+
+	JsonObject options = doc.as<JsonObject>();
+	JsonArray analogKeys = options["analogKeys"];
+	int index = 0;
+
+	for (JsonObject key: analogKeys) {
+		analogKeyOptions.analogKeys[index].mask = key["mask"].as<uint32_t>();
+		analogKeyOptions.analogKeys[index].enabledPerKeySettings = key["enabledPerKeySettings"].as<uint32_t>();
+		analogKeyOptions.analogKeys[index].actuationOptions.actuationMode = key["actuationOptions"]["actuationMode"].as<uint32_t>();
+		analogKeyOptions.analogKeys[index].actuationOptions.actuationPoint = key["actuationOptions"]["actuationPoint"].as<uint32_t>();
+		analogKeyOptions.analogKeys[index].actuationOptions.pressSensitivity = key["actuationOptions"]["pressSensitivity"].as<uint32_t>();
+		analogKeyOptions.analogKeys[index].actuationOptions.releaseSensitivity = key["actuationOptions"]["releaseSensitivity"].as<uint32_t>();
+
+		if (++index >= MUX_CHANNELS) break;
+	}
+
+	Storage::getInstance().save();
+	return serialize_json(doc);
+}
+
+std::string getAnalogKeyAddonOptions()
+{
+	DynamicJsonDocument doc(LWIP_HTTPD_POST_MAX_PAYLOAD_LEN);
+	AnalogKeyOptions& analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
+
+	writeDoc(doc, "AnalogKeyEnabled", analogKeyOptions.enabled);
+	writeDoc(doc, "travelDistance", analogKeyOptions.travelDistance);
+	writeDoc(doc, "bottomMagneticPole", analogKeyOptions.bottomMagneticPole);
+	writeDoc(doc, "actuationOptions", "actuationMode", analogKeyOptions.actuationOptions.actuationMode);
+	writeDoc(doc, "actuationOptions", "actuationPoint", analogKeyOptions.actuationOptions.actuationPoint);
+	writeDoc(doc, "actuationOptions", "pressSensitivity", analogKeyOptions.actuationOptions.pressSensitivity);
+	writeDoc(doc, "actuationOptions", "releaseSensitivity", analogKeyOptions.actuationOptions.releaseSensitivity);
+
+	JsonArray analogKeys = doc.createNestedArray("analogKeys");
+
+	for (int i = 0; i < analogKeyOptions.analogKeys_count; i++) {
+		JsonObject key = analogKeys.createNestedObject();
+
+		key["mask"] = analogKeyOptions.analogKeys[i].mask;
+		key["enabledPerKeySettings"] = analogKeyOptions.analogKeys[i].enabledPerKeySettings ? 1 : 0;
+		key["actuationOptions"]["actuationMode"] = analogKeyOptions.analogKeys[i].actuationOptions.actuationMode;
+		key["actuationOptions"]["actuationPoint"] = analogKeyOptions.analogKeys[i].actuationOptions.actuationPoint;
+		key["actuationOptions"]["pressSensitivity"] = analogKeyOptions.analogKeys[i].actuationOptions.pressSensitivity;
+		key["actuationOptions"]["releaseSensitivity"] = analogKeyOptions.analogKeys[i].actuationOptions.releaseSensitivity;
+	}
+
+	return serialize_json(doc);
+}
+
 std::string getFirmwareVersion()
 {
     DynamicJsonDocument doc(LWIP_HTTPD_POST_MAX_PAYLOAD_LEN);
@@ -2126,6 +2169,8 @@ static const std::pair<const char*, HandlerFuncPtr> handlerFuncs[] =
     { "/api/abortGetHeldPins", abortGetHeldPins },
     { "/api/getUsedPins", getUsedPins },
     { "/api/getConfig", getConfig },
+	  { "/api/setAnalogKeyAddonOptions", setAnalogKeyAddonOptions },
+	  { "/api/getAnalogKeyAddonOptions", getAnalogKeyAddonOptions },
 #if !defined(NDEBUG)
     { "/api/echo", echo },
 #endif

@@ -538,6 +538,30 @@ app.get('/api/getMacroAddonOptions', (req, res) => {
 	});
 });
 
+app.get('/api/getAnalogKeyAddonOptions', (req, res) => {
+	return res.send({
+		enabled: 0,
+		travelDistance: 400,
+		bottomMagneticPole: 0,
+		actuationOptions: {
+			actuationMode: 1,
+			actuationPoint: 150,
+			pressSensitivity: 20,
+			releaseSensitivity: 55,
+		},
+		analogKeys: [...Array(16)].map(() => ({
+			mask: 0,
+			enabledPerKeySettings: 0,
+			actuationOptions: {
+				actuationMode: 1,
+				actuationPoint: 150,
+				pressSensitivity: 20,
+				releaseSensitivity: 55,
+			},
+		}))
+	});
+});
+
 app.get('/api/getFirmwareVersion', (req, res) => {
 	return res.send({
 		boardConfigLabel: 'Pico',

@@ -94,6 +94,9 @@ const Navigation = () => {
 						<NavDropdown.Item as={NavLink} to="/macro">
 							{t('Navigation:macro-label')}
 						</NavDropdown.Item>
+						<NavDropdown.Item as={NavLink} to="/analog-key">
+							{t('Navigation:analog-key-label')}
+						</NavDropdown.Item>
 						<NavDropdown.Item as={NavLink} to="/backup">
 							{t('Navigation:backup-label')}
 						</NavDropdown.Item>

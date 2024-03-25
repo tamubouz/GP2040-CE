@@ -375,7 +375,7 @@ void ButtonLayoutScreen::drawAnalogKeyOptions() {
 
 		line1 += "AM:";
 
-		switch (analogKeyOptions.actuationMode) {
+		switch (analogKeyOptions.actuationOptions.actuationMode) {
 				case 0:
 						line1 += "SA      ";
 						break;
@@ -388,13 +388,13 @@ void ButtonLayoutScreen::drawAnalogKeyOptions() {
 				default:
 						break;
 		}
-		line1 += "AP:" + intToMm(analogKeyOptions.actuationPoint);
+		line1 += "AP:" + intToMm(analogKeyOptions.actuationOptions.actuationPoint);
 
 		getRenderer()->drawText(0, 1, line1);
 
-		if (analogKeyOptions.actuationMode != 0) {
-				line2 += "PS:" + intToMm(analogKeyOptions.pressSensitivity);
-				line2 += "  RS:" + intToMm(analogKeyOptions.releaseSensitivity);
+		if (analogKeyOptions.actuationOptions.actuationMode != 0) {
+				line2 += "PS:" + intToMm(analogKeyOptions.actuationOptions.pressSensitivity);
+				line2 += "  RS:" + intToMm(analogKeyOptions.actuationOptions.releaseSensitivity);
 				getRenderer()->drawText(0, 2, line2);
 		}
 }

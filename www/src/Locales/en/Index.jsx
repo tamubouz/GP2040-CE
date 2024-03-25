@@ -15,6 +15,7 @@ import CaptureButton from './CaptureButton';
 import WiiAddon from './Addons/WiiAddon';
 import Rotary from './Addons/Rotary';
 import InputMacroAddon from './InputMacroAddon';
+import AnalogKeyAddon from './AnalogKeyAddon';
 
 export default {
 	Common,
@@ -34,4 +35,5 @@ export default {
 	WiiAddon,
     Rotary,
 	InputMacroAddon,
+	AnalogKeyAddon,
 };

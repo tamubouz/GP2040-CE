@@ -73,21 +73,21 @@
 #define ANALOG_KEY_PRESS_SENSITIVITY 20
 #define ANALOG_KEY_RELEASE_SENSITIVITY 55
 
-#define MUX_PIN_00 MuxAction::MUX_PIN_LEFT
-#define MUX_PIN_01 MuxAction::MUX_PIN_DOWN
-#define MUX_PIN_02 MuxAction::MUX_PIN_R2
-#define MUX_PIN_03 MuxAction::MUX_PIN_B2
-#define MUX_PIN_04 MuxAction::MUX_PIN_L3
-#define MUX_PIN_05 MuxAction::MUX_PIN_B1
-#define MUX_PIN_06 MuxAction::MUX_PIN_UP
-#define MUX_PIN_07 MuxAction::MUX_PIN_RIGHT
-#define MUX_PIN_08 MuxAction::MUX_PIN_NONE
-#define MUX_PIN_09 MuxAction::MUX_PIN_NONE
-#define MUX_PIN_10 MuxAction::MUX_PIN_L2
-#define MUX_PIN_11 MuxAction::MUX_PIN_B3
-#define MUX_PIN_12 MuxAction::MUX_PIN_L1
-#define MUX_PIN_13 MuxAction::MUX_PIN_R1
-#define MUX_PIN_14 MuxAction::MUX_PIN_B4
-#define MUX_PIN_15 MuxAction::MUX_PIN_R3
+#define MUX_PIN_00 AnalogKeyAction::MUX_PIN_LEFT
+#define MUX_PIN_01 AnalogKeyAction::MUX_PIN_DOWN
+#define MUX_PIN_02 AnalogKeyAction::MUX_PIN_R2
+#define MUX_PIN_03 AnalogKeyAction::MUX_PIN_B2
+#define MUX_PIN_04 AnalogKeyAction::MUX_PIN_L3
+#define MUX_PIN_05 AnalogKeyAction::MUX_PIN_B1
+#define MUX_PIN_06 AnalogKeyAction::MUX_PIN_UP
+#define MUX_PIN_07 AnalogKeyAction::MUX_PIN_RIGHT
+#define MUX_PIN_08 AnalogKeyAction::MUX_PIN_NONE
+#define MUX_PIN_09 AnalogKeyAction::MUX_PIN_NONE
+#define MUX_PIN_10 AnalogKeyAction::MUX_PIN_L2
+#define MUX_PIN_11 AnalogKeyAction::MUX_PIN_B3
+#define MUX_PIN_12 AnalogKeyAction::MUX_PIN_L1
+#define MUX_PIN_13 AnalogKeyAction::MUX_PIN_R1
+#define MUX_PIN_14 AnalogKeyAction::MUX_PIN_B4
+#define MUX_PIN_15 AnalogKeyAction::MUX_PIN_R3
 
 #endif
