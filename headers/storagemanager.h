@@ -64,14 +64,18 @@ public:
 	void SetProcessedGamepad(Gamepad *); // MPGS Processed Gamepad Get/Set
 	Gamepad * GetProcessedGamepad();
 
-	void SetAnalogKeyAddon(AnalogKeyAddon *);
-	AnalogKeyAddon * GetAnalogKeyAddon();
-
 	void SetFeatureData(uint8_t *); 	// USB Feature Data Get/Set
 	void ClearFeatureData();
 	uint8_t * GetFeatureData();
 
 	void setProfile(const uint32_t);		// profile support for multiple mappings
+	void setFunctionalPinMappings();
+
+	void ResetSettings(); 				// EEPROM Reset Feature
+
+	void SetAnalogKeyAddon(AnalogKeyAddon *);
+	AnalogKeyAddon * GetAnalogKeyAddon();
+
 	void cycleActuationMode();
 	void decreaceActuationPoint();
 	void increaceActuationPoint();
@@ -79,16 +83,12 @@ public:
 	void increacePressSensitivity();
 	void decreaceReleaseSensitivity();
 	void increaceReleaseSensitivity();
-	void setFunctionalPinMappings();
-
-	void ResetSettings(); 				// EEPROM Reset Feature
 
 private:
 	Storage();
 	bool CONFIG_MODE = false; 			// Config mode (boot)
 	Gamepad * gamepad = nullptr;    		// Gamepad data
 	Gamepad * processedGamepad = nullptr; // Gamepad with ONLY processed data
-	AnalogKeyAddon * analogKeyAddon = nullptr;
 	uint8_t featureData[32]; // USB X-Input Feature Data
 	DisplayOptions previewDisplayOptions;
 	Config config;
@@ -97,6 +97,7 @@ private:
 	uint32_t animationOptionsCrc = 0;
 	AnimationOptions animationOptionsToSave = {};
 	GpioAction functionalPinMappings[NUM_BANK0_GPIOS];
+	AnalogKeyAddon * analogKeyAddon = nullptr;
 };
 
 #endif

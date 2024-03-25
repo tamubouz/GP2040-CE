@@ -197,9 +197,6 @@ src/usbhostmanager.cpp
 src/config_legacy.cpp
 src/config_utils.cpp
 src/configs/webconfig.cpp
-src/addons/analog_key.cpp
-src/addons/analog_key/sma_filter.cpp
-src/addons/analog_key/gauss_lut.cpp
 src/addons/analog.cpp
 src/addons/board_led.cpp
 src/addons/bootsel_button.cpp
@@ -223,6 +220,9 @@ src/addons/input_macro.cpp
 src/addons/snes_input.cpp
 src/addons/tilt.cpp
 src/addons/spi_analog_ads1256.cpp
+src/addons/analog_key.cpp
+src/addons/analog_key/sma_filter.cpp
+src/addons/analog_key/gauss_lut.cpp
 ${PROTO_OUTPUT_DIR}/enums.pb.c
 ${PROTO_OUTPUT_DIR}/config.pb.c
 )

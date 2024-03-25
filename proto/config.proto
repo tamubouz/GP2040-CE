@@ -332,30 +332,6 @@ message OnBoardLedOptions
     optional bool enabled = 2;
 }
 
-message ActuationOptions
-{
-	optional int32 actuationMode = 1;
-	optional int32 actuationPoint = 2;
-	optional int32 pressSensitivity = 3;
-	optional int32 releaseSensitivity = 4;
-}
-
-message AnalogKeyPerKey
-{
-	optional int32 mask = 1;
-	optional int32 enabledPerKeySettings = 2;
-	optional ActuationOptions actuationOptions = 3;
-}
-
-message AnalogKeyOptions
-{
-	optional bool enabled = 1;
-	optional int32 travelDistance = 2;
-	optional int32 bottomMagneticPole = 3;
-	optional ActuationOptions actuationOptions = 4;
-	repeated AnalogKeyPerKey analogKeys = 5 [(nanopb).max_count = 16];
-}
-
 message AnalogOptions
 {
     optional bool enabled = 1;
@@ -751,6 +727,30 @@ message RotaryOptions
     optional RotaryPinOptions encoderTwo = 3;
 }
 
+message ActuationOptions
+{
+    optional int32 actuationMode = 1;
+    optional int32 actuationPoint = 2;
+    optional int32 pressSensitivity = 3;
+    optional int32 releaseSensitivity = 4;
+}
+
+message AnalogKeyPerKey
+{
+    optional int32 mask = 1;
+    optional int32 enabledPerKeySettings = 2;
+    optional ActuationOptions actuationOptions = 3;
+}
+
+message AnalogKeyOptions
+{
+    optional bool enabled = 1;
+    optional int32 travelDistance = 2;
+    optional int32 bottomMagneticPole = 3;
+    optional ActuationOptions actuationOptions = 4;
+    repeated AnalogKeyPerKey analogKeys = 5 [(nanopb).max_count = 16];
+}
+
 message AddonOptions
 {
     optional BootselButtonOptions bootselButtonOptions = 1;
@@ -777,7 +777,7 @@ message AddonOptions
     optional XBOnePassthroughOptions xbonePassthroughOptions = 22 [deprecated = true];
     optional AnalogADS1256Options analogADS1256Options = 23;
     optional RotaryOptions rotaryOptions = 24;
-	  optional AnalogKeyOptions analogKeyOptions = 25;
+    optional AnalogKeyOptions analogKeyOptions = 25;
 }
 
 message MigrationHistory

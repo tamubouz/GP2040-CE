@@ -17,7 +17,10 @@
 #endif
 
 #ifndef MUX_SELECTOR_PINS
-#define MUX_SELECTOR_PINS { 4, 5, 3, 2 }
+#define MUX_SELECTOR_PINS \
+    {                     \
+        4, 5, 3, 2        \
+    }
 #endif
 
 // The travel distance of the switches, where 1 unit equals 0.01mm. This is used to map the values properly to
@@ -117,17 +120,17 @@
 */
 
 struct AnalogKey {
-	uint16_t index;
+  uint16_t index;
   uint16_t rawValue = 0;
   uint16_t smaValue = 0;
   uint16_t restPosition = 0;
   uint16_t downPosition = (1 << ANALOG_RESOLUTION) - 1;
   uint16_t distance = 0;
   uint16_t extremum = UINT16_MAX;
-	bool calibrated = false;
-	bool pressed = false;
-	bool inRapidTriggerZone = false;
-	SMAFilter filter = SMAFilter(SMA_FILTER_SAMPLE_EXPONENT);
+  bool calibrated = false;
+  bool pressed = false;
+  bool inRapidTriggerZone = false;
+  SMAFilter filter = SMAFilter(SMA_FILTER_SAMPLE_EXPONENT);
 };
 
 /*
@@ -137,7 +140,7 @@ struct AnalogKey {
 */
 
 #define MUX_SELECTOR_BITS 4
-#define MUX_CHANNELS ( 1 << MUX_SELECTOR_BITS )
+#define MUX_CHANNELS (1 << MUX_SELECTOR_BITS)
 
 #define ANALOG_RESOLUTION 12
 
@@ -151,37 +154,38 @@ struct AnalogKey {
 // This value is important to reset the rapid trigger state properly with continuous rapid trigger.
 #define CONTINUOUS_RAPID_TRIGGER_THRESHOLD 0
 
-#define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
 // Analog Module Name
 #define AnalogKeyName "AnalogKey"
 
 class AnalogKeyAddon : public GPAddon {
 public:
-	AnalogKeyAddon() {
-		for (uint8_t i = 0; i < MUX_CHANNELS; i++) {
+  AnalogKeyAddon() {
+    for (uint8_t i = 0; i < MUX_CHANNELS; i++) {
       keys[i] = AnalogKey();
-			keys[i].index = i;
-		}
-	}
-	virtual bool available();
-	virtual void setup();
-	virtual void process();
-	virtual void preprocess() {}
-	virtual void bootProcess();
+      keys[i].index = i;
+    }
+  }
+  virtual bool available();
+  virtual void setup();
+  virtual void process();
+  virtual void preprocess() {}
+  virtual void bootProcess();
   virtual std::string name() { return AnalogKeyName; }
-	AnalogKey keys[MUX_CHANNELS];
-	AnalogKey bootKeys[MUX_CHANNELS];
+  AnalogKey keys[MUX_CHANNELS];
+  AnalogKey bootKeys[MUX_CHANNELS];
+
 private:
-	uint16_t pressHysteresis = 0;
-	uint16_t releaseHysteresis = 50;
+  uint16_t pressHysteresis = 0;
+  uint16_t releaseHysteresis = 50;
   uint8_t muxSelectorPins[MUX_SELECTOR_BITS] = MUX_SELECTOR_PINS;
-	GaussLUT gaussLUT;
-	void selectMux(uint8_t channel);
-	void updateKeyRange(AnalogKey &key);
-	void scanKey(AnalogKey &key);
-	void checkKey(AnalogKey &key);
-	long map(long x, long in_min, long in_max, long out_min, long out_max);
+  GaussLUT gaussLUT;
+  void selectMux(uint8_t channel);
+  void updateKeyRange(AnalogKey &key);
+  void scanKey(AnalogKey &key);
+  void checkKey(AnalogKey &key);
+  long map(long x, long in_min, long in_max, long out_min, long out_max);
 };
 
-#endif  // _AnalogKey_H_
+#endif // _AnalogKey_H_

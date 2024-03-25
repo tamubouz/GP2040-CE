@@ -48,8 +48,8 @@ const BUTTON_LAYOUTS = [
     { label: 'Gitadora Fret', value: 25 }, // BUTTON_LAYOUT_GITADORA_FRET_A
     { label: 'Gitadora Strum', value: 26 }, // BUTTON_LAYOUT_GITADORA_STRUM_A
     { label: 'Board Defined', value: 27 }, // BUTTON_LAYOUT_BOARD_DEFINED_A
-		{ label: 'Rapidbox', value: 28 }, // BUTTON_LAYOUT_RAPIDBOX
-	];
+    { label: 'Rapidbox', value: 28 }, // BUTTON_LAYOUT_RAPIDBOX
+];
 
 const BUTTON_LAYOUTS_RIGHT = [
 	{ label: 'Arcade', value: 0 }, // BUTTON_LAYOUT_ARCADE
@@ -84,8 +84,8 @@ const BUTTON_LAYOUTS_RIGHT = [
     { label: 'Gitadora Fret', value: 29}, // BUTTON_LAYOUT_GITADORA_FRET_B
     { label: 'Gitadora Strum', value: 30}, // BUTTON_LAYOUT_GITADORA_STRUM_B
     { label: 'Board Defined', value: 31 }, // BUTTON_LAYOUT_BOARD_DEFINED_B
-		{ label: 'Rapidbox', value: 32 }, // BUTTON_LAYOUT_RAPIDBOXB
-	];
+    { label: 'Rapidbox', value: 32 }, // BUTTON_LAYOUT_RAPIDBOXB
+];
 
 const SPLASH_MODES = [
 	{ label: 'Enabled (Custom Splash Screen)', value: 0 },  // STATICSPLASH

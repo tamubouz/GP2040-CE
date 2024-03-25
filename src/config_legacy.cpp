@@ -286,7 +286,7 @@ namespace ConfigLegacy
         uint8_t wiiExtensionSCLPin;
         int wiiExtensionBlock;
         uint32_t wiiExtensionSpeed;
-				uint8_t AnalogKeyEnabled;
+        uint8_t AnalogKeyEnabled;
         uint8_t AnalogInputEnabled;
         uint8_t BoardLedAddonEnabled;
         uint8_t BootselButtonAddonEnabled;

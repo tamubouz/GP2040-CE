@@ -355,16 +355,16 @@ enum RotaryEncoderPinMode
 };
 
 enum BottomMagneticPole {
-  option (nanopb_enumopt).long_names = false;
+    option (nanopb_enumopt).long_names = false;
 
-  N_POLE = 0;
-  S_POLE = 1;
+    N_POLE = 0;
+    S_POLE = 1;
 };
 
 enum ActuationMode {
-  option (nanopb_enumopt).long_names = false;
+    option (nanopb_enumopt).long_names = false;
 
-  STATIC_ACTUATION = 0;
-  RAPID_TRIGGER = 1;
-  CONTINUOUS_RAPID_TRIGGER = 2;
+    STATIC_ACTUATION = 0;
+    RAPID_TRIGGER = 1;
+    CONTINUOUS_RAPID_TRIGGER = 2;
 };
