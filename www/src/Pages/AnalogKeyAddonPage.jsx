@@ -24,6 +24,7 @@ const ACTUATION_MODE = [
 const schema = yup.object().shape({
 	travelDistance: yup.number(),
 	bottomMagneticPole: yup.number(),
+	rappySnappy: yup.number(),
 	actuationOptions: yup.object().shape({
 		actuationMode: yup.number(),
 		actuationPoint: yup.number(),
@@ -45,9 +46,10 @@ const schema = yup.object().shape({
 });
 
 const defaultValues = {
+	travelDistance: 400,
+	bottomMagneticPole: 0,
+	rappySnappy: 0,
 	actuationOptions: {
-		travelDistance: 400,
-		bottomMagneticPole: 0,
 		actuationMode: 0,
 		actuationPoint: 150,
 		pressSensitivity: 20,
@@ -57,8 +59,6 @@ const defaultValues = {
 		mask: 0,
 		enabledPerKeySettings: 0,
 		actuationOptions: {
-			travelDistance: 400,
-			bottomMagneticPole: 0,
 			actuationMode: 0,
 			actuationPoint: 150,
 			pressSensitivity: 20,
@@ -93,14 +93,11 @@ const ActuationSettings = (props) => {
 		id,
 		mask,
 		travelDistance,
-		// bottomMagneticPole,
 		actuationOptions,
 		handleChange,
 		setFieldValue,
 	} = props;
 	const {
-		// travelDistance,
-		// bottomMagneticPole,
 		actuationMode,
 		actuationPoint,
 		pressSensitivity,
@@ -337,6 +334,17 @@ export default function SettingsPage() {
 											setFieldValue={setFieldValue}
 											{...values}
 										/>
+										<Form.Group className="mt-3" controlId={`rappySnappy`}>
+											<Form.Check
+												label={t('AnalogKeyAddon:rappy-snappy-label')}
+												type="switch"
+												className="form-select-sm"
+												checked={values.rappySnappy}
+												onChange={(e) => {
+													setFieldValue(`rappySnappy`, e.target.checked ? 1 : 0);
+												}}
+											/>
+										</Form.Group>
 									</div>
 									<hr className="mt-3" />
 									{values.analogKeys && values.analogKeys.map((props, i) => (

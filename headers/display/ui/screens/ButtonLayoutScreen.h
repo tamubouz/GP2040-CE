@@ -183,8 +183,6 @@ class ButtonLayoutScreen : public GPScreen {
                     "BK", "ST", "LS", "RS", "", ""
             }
         };
-        std::string intToMm(int16_t num);
-        void drawAnalogKeyOptions();
 };
 
 #endif

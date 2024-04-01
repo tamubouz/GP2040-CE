@@ -1911,6 +1911,7 @@ std::string setAnalogKeyAddonOptions()
     readDoc(analogKeyOptions.enabled, doc, "AnalogKeyEnabled");
     readDoc(analogKeyOptions.travelDistance, doc, "travelDistance");
     readDoc(analogKeyOptions.bottomMagneticPole, doc, "bottomMagneticPole");
+    readDoc(analogKeyOptions.rappySnappy, doc, "rappySnappy");
     readDoc(analogKeyOptions.actuationOptions.actuationMode, doc, "actuationOptions", "actuationMode");
     readDoc(analogKeyOptions.actuationOptions.actuationPoint, doc, "actuationOptions", "actuationPoint");
     readDoc(analogKeyOptions.actuationOptions.pressSensitivity, doc, "actuationOptions", "pressSensitivity");
@@ -1943,6 +1944,7 @@ std::string getAnalogKeyAddonOptions()
     writeDoc(doc, "AnalogKeyEnabled", analogKeyOptions.enabled);
     writeDoc(doc, "travelDistance", analogKeyOptions.travelDistance);
     writeDoc(doc, "bottomMagneticPole", analogKeyOptions.bottomMagneticPole);
+    writeDoc(doc, "rappySnappy", analogKeyOptions.rappySnappy);
     writeDoc(doc, "actuationOptions", "actuationMode", analogKeyOptions.actuationOptions.actuationMode);
     writeDoc(doc, "actuationOptions", "actuationPoint", analogKeyOptions.actuationOptions.actuationPoint);
     writeDoc(doc, "actuationOptions", "pressSensitivity", analogKeyOptions.actuationOptions.pressSensitivity);

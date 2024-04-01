@@ -749,6 +749,7 @@ message AnalogKeyOptions
     optional int32 bottomMagneticPole = 3;
     optional ActuationOptions actuationOptions = 4;
     repeated AnalogKeyPerKey analogKeys = 5 [(nanopb).max_count = 16];
+		optional int32 rappySnappy = 6;
 }
 
 message AddonOptions

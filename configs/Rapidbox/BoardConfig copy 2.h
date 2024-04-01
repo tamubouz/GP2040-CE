@@ -25,12 +25,12 @@
 // #define GPIO_PIN_11 GpioAction::BUTTON_PRESS_B4     // B4     | Y      | X       | Triangle | 4      | P2     |
 // #define GPIO_PIN_12 GpioAction::BUTTON_PRESS_R1     // R1     | RB     | R       | R1       | 6      | P3     |
 // #define GPIO_PIN_13 GpioAction::BUTTON_PRESS_L1     // L1     | LB     | L       | L1       | 5      | P4     |
-#define GPIO_PIN_09 GpioAction::BUTTON_PRESS_S2     // S1     | Back   | Minus   | Select   | 9      | Coin   |
-#define GPIO_PIN_08 GpioAction::BUTTON_PRESS_S1     // S2     | Start  | Plus    | Start    | 10     | Start  |
+// #define GPIO_PIN_09 GpioAction::BUTTON_PRESS_S2     // S1     | Back   | Minus   | Select   | 9      | Coin   |
+// #define GPIO_PIN_08 GpioAction::BUTTON_PRESS_S1     // S2     | Start  | Plus    | Start    | 10     | Start  |
 // #define GPIO_PIN_18 GpioAction::BUTTON_PRESS_L3     // L3     | LS     | LS      | L3       | 11     | LS     |
 // #define GPIO_PIN_19 GpioAction::BUTTON_PRESS_R3     // R3     | RS     | RS      | R3       | 12     | RS     |
-#define GPIO_PIN_07 GpioAction::BUTTON_PRESS_A2     // A1     | Guide  | Home    | PS       | 13     | ~      |
-#define GPIO_PIN_06 GpioAction::BUTTON_PRESS_A1     // A2     | ~      | Capture | ~        | 14     | ~      |
+// #define GPIO_PIN_07 GpioAction::BUTTON_PRESS_A2     // A1     | Guide  | Home    | PS       | 13     | ~      |
+// #define GPIO_PIN_06 GpioAction::BUTTON_PRESS_A1     // A2     | ~      | Capture | ~        | 14     | ~      |
 
 // Keyboard Mapping Configuration
 //                                            // GP2040 | Xinput | Switch  | PS3/4/5  | Dinput | Arcade |
@@ -54,8 +54,8 @@
 #define KEY_BUTTON_A2   HID_KEY_F2            // A2     | ~      | Capture | ~        | 14     | ~      |
 #define KEY_BUTTON_FN   -1                    // Hotkey Function                                        |
 
-#define HAS_I2C_DISPLAY 1
-#define I2C1_ENABLED 1
+#define HAS_I2C_DISPLAY 0
+#define I2C1_ENABLED 0
 #define I2C1_PIN_SDA 26
 #define I2C1_PIN_SCL 27
 #define DISPLAY_I2C_BLOCK i2c1
@@ -64,36 +64,55 @@
 #define SPLASH_MODE SPLASH_MODE_STATIC
 #define SPLASH_DURATION 2000
 
-#define PSPASSTHROUGH_ENABLED 1
-#define PSPASSTHROUGH_PIN_DPLUS 16
+#define PSPASSTHROUGH_ENABLED 0
+#define PSPASSTHROUGH_PIN_DPLUS 6
 
 #define ANALOG_KEY_ENABLED 1
 #define MUX_PIN 29
-#define MUX_SELECTOR_PINS { 4, 5, 3, 2 }
+#define MUX_SELECTOR_PINS { 6, 7, 8, 9 }
 #define TRAVEL_DISTANCE_IN_0_01MM 400
 #define BOTTOM_MAGNETIC_POLE 0
 #define RAPPY_SNAPPY 0
 #define ANALOG_KEY_ACTUATION_MODE 1
-#define ANALOG_KEY_ACTUATION_POINT 10
+#define ANALOG_KEY_ACTUATION_POINT 150
 #define ANALOG_KEY_PRESS_SENSITIVITY 20
 #define ANALOG_KEY_RELEASE_SENSITIVITY 55
 
-#define ANALOG_KEY_01 GAMEPAD_MASK_DL
-#define ANALOG_KEY_02 GAMEPAD_MASK_DD
-#define ANALOG_KEY_03 GAMEPAD_MASK_R2
-#define ANALOG_KEY_04 GAMEPAD_MASK_B2
-#define ANALOG_KEY_05 GAMEPAD_MASK_L3
-#define ANALOG_KEY_06 GAMEPAD_MASK_B1
-#define ANALOG_KEY_07 GAMEPAD_MASK_DU
-#define ANALOG_KEY_08 GAMEPAD_MASK_DR
+#define ANALOG_KEY_01 GAMEPAD_MASK_DD
+#define ANALOG_KEY_02 0
+#define ANALOG_KEY_03 0
+#define ANALOG_KEY_04 0
+#define ANALOG_KEY_05 0
+#define ANALOG_KEY_06 0
+#define ANALOG_KEY_07 0
+#define ANALOG_KEY_08 0
 #define ANALOG_KEY_09 0
 #define ANALOG_KEY_10 0
-#define ANALOG_KEY_11 GAMEPAD_MASK_L2
-#define ANALOG_KEY_12 GAMEPAD_MASK_B3
-#define ANALOG_KEY_13 GAMEPAD_MASK_L1
-#define ANALOG_KEY_14 GAMEPAD_MASK_R1
-#define ANALOG_KEY_15 GAMEPAD_MASK_B4
-#define ANALOG_KEY_16 GAMEPAD_MASK_R3
+#define ANALOG_KEY_11 0
+#define ANALOG_KEY_12 0
+#define ANALOG_KEY_13 0
+#define ANALOG_KEY_14 0
+#define ANALOG_KEY_15 0
+#define ANALOG_KEY_16 GAMEPAD_MASK_DL
+
+/*
+#define ANALOG_KEY_01 0
+#define ANALOG_KEY_02 0
+#define ANALOG_KEY_03 GAMEPAD_MASK_L2
+#define ANALOG_KEY_04 GAMEPAD_MASK_L1
+#define ANALOG_KEY_05 GAMEPAD_MASK_R2
+#define ANALOG_KEY_06 GAMEPAD_MASK_R1
+#define ANALOG_KEY_07 GAMEPAD_MASK_B2
+#define ANALOG_KEY_08 GAMEPAD_MASK_B4
+#define ANALOG_KEY_09 GAMEPAD_MASK_L3
+#define ANALOG_KEY_10 GAMEPAD_MASK_B1
+#define ANALOG_KEY_11 GAMEPAD_MASK_B3
+#define ANALOG_KEY_12 GAMEPAD_MASK_R3
+#define ANALOG_KEY_13 GAMEPAD_MASK_DU
+#define ANALOG_KEY_14 GAMEPAD_MASK_DR
+#define ANALOG_KEY_15 GAMEPAD_MASK_DD
+#define ANALOG_KEY_16 GAMEPAD_MASK_DL
+*/
 
 #define DEFAULT_SPLASH \
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, \

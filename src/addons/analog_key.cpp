@@ -21,6 +21,7 @@ void AnalogKeyAddon::setup() {
 
   adc_gpio_init(MUX_PIN);
   adc_select_input(MUX_PIN - 26);
+
   gaussLUT.init(GAUSS_CORRECTION_PARAM_A, GAUSS_CORRECTION_PARAM_B, GAUSS_CORRECTION_PARAM_C, GAUSS_CORRECTION_PARAM_D, analogKeyOptions.travelDistance);
 }
 
@@ -143,7 +144,7 @@ void AnalogKeyAddon::checkKey(AnalogKey &key)
   const AnalogKeyOptions &analogKeyOptions = Storage::getInstance().getAddonOptions().analogKeyOptions;
   const ActuationOptions &actuationOptions = analogKeyOptions.analogKeys[key.index].enabledPerKeySettings ? analogKeyOptions.analogKeys[key.index].actuationOptions : analogKeyOptions.actuationOptions;
 
-  if (actuationOptions.actuationMode == ActuationMode::STATIC_ACTUATION) {
+  if (actuationOptions.actuationMode == ActuationMode::STATIC_ACTUATION && !(analogKeyOptions.rappySnappy && key.index == 0) && !(analogKeyOptions.rappySnappy && key.index == 7)) {
     if (key.distance <= MAX(analogKeyOptions.travelDistance - actuationOptions.actuationPoint - pressHysteresis, 0)) {
       key.pressed = true;
     } else if (key.distance >= MIN(analogKeyOptions.travelDistance - actuationOptions.actuationPoint + releaseHysteresis, analogKeyOptions.travelDistance)) {
@@ -164,11 +165,21 @@ void AnalogKeyAddon::checkKey(AnalogKey &key)
     key.inRapidTriggerZone = false;
   }
 
+
+  if (analogKeyOptions.rappySnappy) {
+		AnalogKey &otherKey = keys[key.index == 0 ? 7 : 0];
+
+		if (key.distance <= MAX(analogKeyOptions.travelDistance - actuationOptions.actuationPoint - pressHysteresis, 0) && key.distance < otherKey.distance) {
+      key.pressed = true;
+		} else if (key.distance >= MIN(analogKeyOptions.travelDistance - actuationOptions.actuationPoint + releaseHysteresis, analogKeyOptions.travelDistance) || key.distance > otherKey.distance) {
+      key.pressed = false;
+		}
+
   // RT STEP 2: If the value entered the rapid trigger zone, perform a press and set the rapid trigger state to true.
   // If the value is below the lower hysteresis and the rapid trigger state is false on the key, press the key because the action of entering
   // the rapid trigger zone is already counted as a trigger. From there on, the actuation point moves dynamically in that zone.
   // Also the rapid trigger state for the key has to be set to true in order to be processed by furture loops.
-  if (key.distance <= analogKeyOptions.travelDistance - actuationOptions.actuationPoint && !key.inRapidTriggerZone) {
+  } else if (key.distance <= analogKeyOptions.travelDistance - actuationOptions.actuationPoint && !key.inRapidTriggerZone) {
     key.inRapidTriggerZone = true;
     key.pressed = true;
 

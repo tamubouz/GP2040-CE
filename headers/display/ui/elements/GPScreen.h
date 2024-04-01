@@ -22,11 +22,13 @@ class GPScreen : public GPWidget {
             displayList.emplace_back(std::move(new_element));
             return static_cast<_GPWidget*>(raw_ptr);
         }
+        void drawAnalogKeyOptions();
     protected:
         virtual void drawScreen() = 0;
 
     private:
         std::vector<std::unique_ptr<GPWidget>> displayList;
+        std::string intToMm(int16_t num);
 };
 
 #endif

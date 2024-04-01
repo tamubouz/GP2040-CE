@@ -3,6 +3,7 @@ export default {
 	'key-switch-options-label': 'Key Switch Options',
 	'travel-distance-label': 'Travel Distance',
 	'bottom-magnetic-pole-label': 'Bottom Magnertic Pole',
+	'rappy-snappy-label': 'Enabled Rappy Snappy (Experimental)',
 	'common-actuation-options-label': 'Common Actuation Options',
 	'analog-key': {
 		'key-assign-label': 'Key Assign',

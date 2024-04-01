@@ -90,7 +90,6 @@ void GP2040::setup() {
 
 	// Setup Add-ons
 	addons.LoadUSBAddon(new KeyboardHostAddon(), CORE0_INPUT);
-	addons.LoadAddon(analogKeyAddon, CORE0_INPUT);
 	addons.LoadAddon(new AnalogInput(), CORE0_INPUT);
 	addons.LoadAddon(new BootselButtonAddon(), CORE0_INPUT);
 	addons.LoadAddon(new DualDirectionalInput(), CORE0_INPUT);
@@ -104,6 +103,7 @@ void GP2040::setup() {
 	addons.LoadAddon(new SliderSOCDInput(), CORE0_INPUT);
 	addons.LoadAddon(new TiltInput(), CORE0_INPUT);
 	addons.LoadAddon(new RotaryEncoderInput(), CORE0_INPUT);
+	addons.LoadAddon(analogKeyAddon, CORE0_INPUT);
 
 	// Input override addons
 	addons.LoadAddon(new ReverseInput(), CORE0_INPUT);
@@ -351,10 +351,10 @@ GP2040::BootAction GP2040::getBootAction() {
 				addons.PreprocessAddons(ADDON_PROCESS::CORE0_INPUT);
 
 				gamepad->process(); // process through MPGS
+				analogKeyAddon->bootProcess();
 
 				// (Post) Process for add-ons
 				addons.ProcessAddons(ADDON_PROCESS::CORE0_INPUT);
-				analogKeyAddon->bootProcess();
 
 				// Copy Processed Gamepad for Core1 (race condition otherwise)
 				memcpy(&processedGamepad->state, &gamepad->state, sizeof(GamepadState));

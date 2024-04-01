@@ -519,6 +519,7 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, enabled, !!ANALOG_KEY_ENABLED);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, travelDistance, TRAVEL_DISTANCE_IN_0_01MM);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, bottomMagneticPole, BOTTOM_MAGNETIC_POLE);
+    INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions, rappySnappy, RAPPY_SNAPPY);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, actuationMode, ANALOG_KEY_ACTUATION_MODE);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, actuationPoint, ANALOG_KEY_ACTUATION_POINT);
     INIT_UNSET_PROPERTY(config.addonOptions.analogKeyOptions.actuationOptions, pressSensitivity, ANALOG_KEY_PRESS_SENSITIVITY);

@@ -824,7 +824,15 @@ export default function SettingsPage() {
 	};
 
 	const saveSettings = async (values) => {
-		const success = await WebApi.setGamepadOptions(values);
+		let mappings = { ...keyMappings };
+		mappings = validateMappings(mappings, t);
+		setKeyMappings(mappings);
+
+		const success = await Promise.all([
+			await WebApi.setKeyMappings(mappings),
+			await WebApi.setGamepadOptions(values),
+		])
+
 		setSaveMessage(
 			success
 				? t('Common:saved-success-message')
